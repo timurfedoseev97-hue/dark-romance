@@ -1,0 +1,129 @@
+# dark-romance
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Romance 🥀</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ background:radial-gradient(ellipse at 50% 20%,#3b1018,#10090c 55%,#050505);
+ color:#eee;font-family:Georgia,serif;
+ overflow-x:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff08 4px);
+ opacity:.5;
+}
+#rain{position:fixed;inset:0;pointer-events:none;opacity:.25;
+ background-image:repeating-linear-gradient(105deg,transparent 0 30px,#aaa 31px,transparent 32px);
+ animation:rain .35s linear infinite}
+@keyframes rain{to{background-position:0 32px}}
+main{position:relative;z-index:1;min-height:100vh;
+ display:flex;align-items:center;justify-content:center;padding:20px}
+.scene{
+ width:min(100%,750px);min-height:75vh;padding:35px 22px;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ text-align:center;border:1px solid #74303a88;
+ background:#090607d9;box-shadow:0 0 55px #8d152333;
+ animation:appear .8s ease;
+}
+.hidden{display:none!important}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(2.2rem,8vw,4.5rem);color:#c94b5d;
+ text-shadow:0 0 20px #a21d36;margin:15px 0}
+h2{color:#d9a1a8;font-size:clamp(1.4rem,5vw,2rem)}
+p{font-size:clamp(1.05rem,3vw,1.3rem);line-height:1.7;color:#d4c9ca;max-width:580px}
+.rose{font-size:75px;filter:drop-shadow(0 0 20px #a5233b);animation:pulse 2s infinite}
+@keyframes pulse{50%{transform:scale(1.1)}}
+input{background:#140d10;border:1px solid #8d3543;color:white;
+ padding:14px;border-radius:5px;font-size:20px;text-align:center;
+ width:180px;margin:15px}
+button{padding:14px 25px;margin:8px;border:1px solid #a44453;
+ background:#541b27;color:white;font-size:17px;cursor:pointer;
+ transition:.25s}
+button:hover{background:#8d293b;box-shadow:0 0 20px #a72e45}
+.no{background:#21191b;border-color:#665057}
+#error{color:#e77c8b}
+.small{font-size:14px;color:#88777a}
+</style>
+</head>
+<body>
+<div id="rain"></div>
+<main>
+
+<section class="scene" id="login">
+ <div class="rose">🥀</div>
+ <h1>Dark Romance</h1>
+ <p>В этом мире есть кое-что особенное для тебя...</p>
+ <input id="pass" type="password" maxlength="4"
+ inputmode="numeric" placeholder="Пароль">
+ <button onclick="enter()">Открыть</button>
+ <p id="error"></p>
+</section>
+
+<section class="scene hidden" id="intro">
+ <div class="rose">🖤</div>
+ <h1>Привет...</h1>
+ <p>Я приготовил для тебя кое-что необычное.</p>
+ <p class="small">Просто нажми на кнопку.</p>
+ <button onclick="show('message')">Продолжить</button>
+</section>
+
+<section class="scene hidden" id="message">
+ <div class="rose">🥀</div>
+ <h1>Для тебя</h1>
+ <p>
+ Иногда даже среди миллионов людей встречается человек,
+ который становится особенным.
+ </p>
+ <p>
+ И я хочу, чтобы ты знала: ты действительно много для меня значишь.
+ </p>
+ <button onclick="show('question')">Ещё кое-что...</button>
+</section>
+
+<section class="scene hidden" id="question">
+ <div class="rose">🖤</div>
+ <h1>Один вопрос</h1>
+ <h2>Ты рада, что мы познакомились?</h2>
+ <button onclick="show('happy')">Да ❤️</button>
+ <button class="no" onclick="show('honest')">Не знаю</button>
+</section>
+
+<section class="scene hidden" id="happy">
+ <div class="rose">🌹</div>
+ <h1>Спасибо тебе</h1>
+ <p>Ты сделала этот вечер немного теплее. ❤️</p>
+</section>
+
+<section class="scene hidden" id="honest">
+ <div class="rose">🌙</div>
+ <h1>Всё хорошо</h1>
+ <p>Спасибо за честность. Мне важно, чтобы тебе было комфортно.</p>
+</section>
+
+</main>
+<script>
+function show(id){
+ document.querySelectorAll(".scene").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+}
+function enter(){
+ if(document.getElementById("pass").value==="1212"){
+  show("intro");
+ }else{
+  document.getElementById("error").textContent="Неверный пароль...";
+ }
+}
+document.getElementById("pass").addEventListener("keydown",e=>{
+ if(e.key==="Enter")enter();
+});
+</script>
+</body>
+</html>
+       
